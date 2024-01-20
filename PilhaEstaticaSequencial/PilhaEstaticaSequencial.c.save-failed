@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "PilhaEstaticaSequencial.c"
+
+struct pilha{
+    int qtd;
+    struct vetor dados[MAX];
+};
+
+Pilha* cria_Pilha(){
+    Pilha *pi;
+    pi = (Pilha*) malloc(sizeof(struct pilha));
+    if(pi != NULL)
+        pi->qtd = 0;
+    return pi;
+}
+
+void libera_Pilha(Pilha* pi){
+    free(pi);
+}
+
+int tamanho_Pilha(Pilha* pi){
+    if(pi == NULL)
+        return -1;
+    else
+        return pi->qtd;
+}
+
+int pilha_Cheia(Pilha* pi){
+    if(pi == NULL)
+        return -1;
+    return (pi->qtd == MAX);
+}
+
+int pilha_Vazia(Pilha* pi){
+    if(pi == NULL)
+        return -1;
+    return (pi->qtd == 0);
+}
+
+int insere_Pilha(Pilha* pi, struct vetor vet){
+    if(pi == NULL)
+        return 0;
+    if(Pilha_cheia(pi))
+        return 0;
+    pi->dados[pi->qtd] = vet;
+    pi->qtd++;
+    return 1;
+}
+
+int remove_Pilha(Pilha* pi){
+    if(pi == NULL ) || pi->qtd == 0)
+        return 0;
+    pi->qtd--;
+    return 1;
+}
+
+int topo_Pilha(Pilha* pi, struct vetor *vet){
+    if(pi == NULL || pi->qtd == 0)
+        return 0;
+    *vet = pi->dados[pi->qtd-1];
+    return 1;
+}
+
+
+
